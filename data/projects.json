@@ -1,0 +1,47 @@
+[
+    {
+        "id": "kolenka",
+        "name": "Kolenka Lashes",
+        "domain": "kolenkalashes.cl",
+        "icon": "📅",
+        "description": "Ecosistema de agendamiento premium para salones de belleza de lujo. Automatiza el ciclo completo de reservas, reduciendo las inasistencias en un 40% mediante recordatorios inteligentes.",
+        "features": [
+            "Integración bidireccional con Google Calendar",
+            "Motor de notificaciones automáticas (Email/WhatsApp)",
+            "Panel de administración con métricas de reserva",
+            "Interfaz responsive optimizada para móviles"
+        ],
+        "live": "#",
+        "image": "img/Kolenka.png"
+    },
+    {
+        "id": "jardin",
+        "name": "Jardín Oasis",
+        "domain": "jardinoasis.cl",
+        "icon": "🌿",
+        "description": "Catálogo digital escalable y sistema de gestión de inventario diseñado para viveros de alto volumen. Integra el procesamiento de datos con una experiencia de usuario fluida.",
+        "features": [
+            "Gestión de inventario vía Google Sheets API",
+            "Carrito de cotización dinámica",
+            "Filtros avanzados por categoría y cuidado",
+            "Backend serverless para alta disponibilidad"
+        ],
+        "live": "https://jvivancodev.github.io/JardinOasis/",
+        "image": "img/Oasis.png"
+    },
+    {
+        "id": "lienza",
+        "name": "Lienza Estudio",
+        "domain": "lienza.cl",
+        "icon": "🏘️",
+        "description": "Plataforma de portafolio de alto rendimiento para firmas de arquitectura, optimizada para el storytelling visual y la exhibición del ciclo de vida del proyecto a través de un CMS a medida.",
+        "features": [
+            "Galería técnica de alta resolución",
+            "Carga diferida optimizada (Lazy loading)",
+            "Gestión de proyectos simplificada",
+            "SEO técnico para visibilidad en el sector"
+        ],
+        "live": "https://jvivancodev.github.io/LienzaEstudio/",
+        "image": "img/Lienza.png"
+    }
+]

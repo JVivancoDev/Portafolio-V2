@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Python",
+    "sub": "Automatización & RPA",
+    "icon": "🐍",
+    "type": "c"
+  },
+  {
+    "name": "JavaScript",
+    "sub": "Lógica Frontend & Backend",
+    "icon": "JS",
+    "type": "m"
+  },
+  {
+    "name": "React",
+    "sub": "Interfaces Dinámicas",
+    "icon": "⚛️",
+    "type": "w"
+  },
+  {
+    "name": "Google Apps Script",
+    "sub": "Google Workspace SDK",
+    "icon": "GAS",
+    "type": "c"
+  },
+  {
+    "name": "SQL & NoSQL",
+    "sub": "Arquitectura de Datos",
+    "icon": "💾",
+    "type": "m"
+  },
+  {
+    "name": "UI/UX Design",
+    "sub": "Figma & Prototipado",
+    "icon": "🎨",
+    "type": "w"
+  },
+  {
+    "name": "API Integration",
+    "sub": "REST & GraphQL",
+    "icon": "🔗",
+    "type": "c"
+  },
+  {
+    "name": "UiPath RPA",
+    "sub": "Robotic Process Auto.",
+    "icon": "🤖",
+    "type": "m"
+  }
+]
