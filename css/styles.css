@@ -66,9 +66,18 @@ button:focus-visible,
   body {
     cursor: none;
   }
+
+  html,
+  body,
+  a,
+  button,
+  .panel,
+  .skill-card,
+  .project-card {
+    cursor: none !important;
+  }
 }
 
-/* ── CUSTOM CURSOR ── */
 .cursor {
   position: fixed;
   top: 0;
@@ -79,9 +88,9 @@ button:focus-visible,
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  /* mix-blend-mode: screen; */
-  transform: translate(0, 0);
+  transform: translate(-50%, -50%);
   transition: width .2s, height .2s, background .2s;
+  display: none;
 }
 
 .cursor-ring {
@@ -94,8 +103,9 @@ button:focus-visible,
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  transform: translate(0, 0);
+  transform: translate(-50%, -50%);
   transition: transform .1s ease, width .3s, height .3s, border-color .3s;
+  display: none;
 }
 
 body.hovering .cursor {
@@ -109,45 +119,7 @@ body.hovering .cursor-ring {
   border-color: var(--magenta);
 }
 
-/* ── CORRECCIÓN DEL CURSOR (Solo fragmento solicitado) ── */
-
-/* Deshabilitar el cursor nativo en todo el sitio para que solo se vea el personalizado */
-html,
-body,
-a,
-button,
-.panel,
-.skill-card,
-.project-card {
-  cursor: none !important;
-}
-
-/* El cursor personalizado sigue manteniendo su lógica de posicionamiento por JS */
-.cursor,
-.cursor-ring {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-}
-
-/* Opcional: Asegurar que en móviles se recupere el comportamiento táctil estándar */
-@media (max-width: 1024px) {
-
-  html,
-  body,
-  a,
-  button {
-    cursor: auto !important;
-  }
-
-  .cursor,
-  .cursor-ring {
-    display: none !important;
-  }
-}
+/* En móviles / touch, el cursor personalizado permanece oculto (display:none por defecto arriba) */
 
 nav {
   position: fixed;
@@ -206,6 +178,8 @@ nav {
   min-width: 44px;
   justify-content: center;
   align-items: center;
+  background: transparent;
+  border: none;
 }
 
 .burger span {
@@ -213,6 +187,18 @@ nav {
   height: 2px;
   background: var(--text);
   transition: var(--transition);
+}
+
+.burger.toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.burger.toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.burger.toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 #hero {
@@ -570,6 +556,8 @@ section {
   inset: 0;
   background-size: cover;
   background-position: center;
+  background-color: var(--bg-panel);
+  /* fallback si la imagen no carga */
   filter: grayscale(100%) opacity(0.3);
   transition: filter 0.4s ease;
 }
@@ -736,6 +724,7 @@ section {
 .skill-card {
   background: var(--bg-panel);
   border: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 2px solid rgba(255, 255, 255, 0.05);
   padding: 1.5rem;
   transition: var(--transition);
   position: relative;
@@ -768,18 +757,33 @@ section {
   }
 }
 
+/* Variantes por tipo de skill (c=core, m=middle, w=complementaria) */
+.skill-card.c {
+  border-top-color: var(--cyan);
+}
+
+.skill-card.m {
+  border-top-color: var(--magenta);
+}
+
+.skill-card.w {
+  border-top-color: rgba(255, 255, 255, 0.25);
+}
+
 .skill-icon {
   font-size: 2rem;
   margin-bottom: 1rem;
   color: var(--cyan);
 }
 
+.skill-name,
 .skill-title {
   font-size: 1.2rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
+.skill-sub,
 .skill-desc {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -810,6 +814,7 @@ section {
   height: 200px;
   overflow: hidden;
   position: relative;
+  background: var(--bg);
 }
 
 .project-img {
@@ -1057,15 +1062,46 @@ footer .logo-img {
 .modal-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .modal-grid {
     grid-template-columns: 1fr 1fr;
   }
 }
 
+/* Estas clases son generadas dinámicamente por openModal() en script.js */
+.modal-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-img-wrap {
+  background: var(--bg-panel);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  aspect-ratio: 4 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.modal-placeholder {
+  font-size: 3rem;
+  text-align: center;
+  color: var(--cyan);
+  line-height: 1.4;
+}
+
+.modal-caption {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+
+/* Clases usadas si en el futuro se insertan imágenes reales en el modal */
 .modal-img-container {
   background: var(--bg-panel);
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -1153,19 +1189,11 @@ footer .logo-img {
   height: 200px;
 }
 
-/* Initially hide skeletons, to be toggled by JS when loading */
+/* Los skeletons se muestran por defecto (markup estático en el HTML)
+   y se retiran del DOM en cuanto llegan los datos reales vía fetch. */
 .skeleton-card {
-  display: none;
-}
-
-.loading .skeleton-card {
   display: flex;
   flex-direction: column;
-}
-
-.loading .skill-card:not(.skeleton-card),
-.loading .project-card:not(.skeleton-card) {
-  display: none;
 }
 
 @media (max-width: 768px) {

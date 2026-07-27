@@ -12,22 +12,22 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProjects();
 });
 
-// ── NAVEGACIÓN MÓVIL ──
+// ── NAVEGACIÓN MÓVIL (listener único, clase consistente con el CSS) ──
 function initMobileMenu() {
   const burger = document.querySelector('#burger');
   const navLinks = document.querySelector('.nav-links');
   if (!burger || !navLinks) return;
 
   burger.addEventListener('click', () => {
-    const isActive = navLinks.classList.toggle('active');
-    burger.classList.toggle('active');
+    const isActive = navLinks.classList.toggle('nav-active');
+    burger.classList.toggle('toggle');
     burger.setAttribute('aria-expanded', isActive);
   });
 
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', () => {
-      navLinks.classList.remove('active');
-      burger.classList.remove('active');
+      navLinks.classList.remove('nav-active');
+      burger.classList.remove('toggle');
       burger.setAttribute('aria-expanded', 'false');
     });
   });
@@ -61,8 +61,11 @@ function initCustomCursor() {
   });
 }
 
+// Se puede volver a invocar tras cargar contenido dinámico (skills/proyectos)
 function initHoverEffects() {
   document.querySelectorAll('a, button, .panel, .skill-card, .project-card').forEach(el => {
+    if (el.dataset.hoverBound) return; // evita listeners duplicados
+    el.dataset.hoverBound = 'true';
     el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
   });
@@ -95,18 +98,17 @@ async function loadSkills() {
     if (!res.ok) throw new Error('Error al cargar skills');
     const skills = await res.json();
 
-    // Remove skeletons and inject content
-    container.innerHTML = '';
-    skills.forEach(skill => {
-      const div = document.createElement('div');
-      div.className = `skill-card ${skill.type} reveal`;
-      div.innerHTML = `
+    // Reemplaza los skeletons por las tarjetas reales
+    container.innerHTML = skills.map(skill => `
+      <div class="skill-card ${skill.type} reveal">
         <div class="skill-icon" aria-hidden="true">${skill.icon}</div>
         <div class="skill-name">${skill.name}</div>
         <div class="skill-sub">${skill.sub}</div>
-      `;
-      container.appendChild(div);
-    });
+      </div>
+    `).join('');
+
+    initScrollReveal(); // observar las nuevas tarjetas .reveal
+    initHoverEffects();  // enlazar el cursor personalizado a las nuevas tarjetas
   } catch (err) {
     console.error(err);
     container.innerHTML = '<p class="error-msg">No se pudieron cargar las habilidades. Por favor, intenta de nuevo más tarde.</p>';
@@ -122,25 +124,25 @@ async function loadProjects() {
     if (!res.ok) throw new Error('Error al cargar proyectos');
     const projects = await res.json();
 
-    container.innerHTML = '';
-    projects.forEach(p => {
-      const div = document.createElement('div');
-      div.className = `project-card ${p.theme || ''} reveal`;
-      container.innerHTML = projects.map(project => `
-          <div class="project-card reveal">
-            <div class="project-img-container">
-              <img src="${project.image}" alt="${project.title}" class="project-img" loading="lazy">
-            </div>
-            <div class="project-info">
-              <h3 class="project-title">${project.name}</h3>
-              <p class="project-desc">${project.description}</p>
-              <div class="project-footer">
-                <a href="${project.live}" class="project-link" target="_blank">Ver Proyecto <span class="material-symbols-outlined">open_in_new</span></a>
-              </div>
-            </div>
+    container.innerHTML = projects.map(project => `
+      <div class="project-card reveal">
+        <div class="project-img-container">
+          <img src="${project.image}" alt="${project.name}" class="project-img" loading="lazy">
+        </div>
+        <div class="project-info">
+          <h3 class="project-title">${project.name}</h3>
+          <p class="project-desc">${project.description}</p>
+          <div class="project-footer">
+            <a href="${project.live}" class="project-link" target="_blank" rel="noopener">
+              Ver Proyecto <span class="material-symbols-outlined">open_in_new</span>
+            </a>
           </div>
-        `).join('');
-    });
+        </div>
+      </div>
+    `).join('');
+
+    initScrollReveal();
+    initHoverEffects();
   } catch (err) {
     console.error(err);
     container.innerHTML = '<p class="error-msg">No se pudieron cargar los proyectos.</p>';
@@ -181,32 +183,29 @@ const modalData = {
   }
 };
 
-// Optimized Modal Functions
 function openModal(projectId) {
   const modal = document.getElementById('modal');
   const modalTitle = document.getElementById('modal-title');
   const modalBody = document.getElementById('modal-body');
   const data = modalData[projectId];
+  if (!modal || !data) return;
 
   modalTitle.textContent = data.title;
 
-  let html = '<div class="modal-grid">';
-  data.slides.forEach(s => {
-    html += `
-      <div class="modal-item">
-        <div class="modal-img-wrap">
-          <div class="modal-placeholder">${s.emoji}<br><span style="margin-top:.4rem;display:block;font-size:.65rem;">${s.label}</span></div>
+  modalBody.innerHTML = `
+    <div class="modal-grid">
+      ${data.slides.map(s => `
+        <div class="modal-item">
+          <div class="modal-img-wrap">
+            <div class="modal-placeholder">${s.emoji}</div>
+          </div>
+          <p class="modal-caption">${s.label}</p>
         </div>
-        <p class="modal-caption">${s.label}</p>
-      </div>`;
-  });
-  html += '</div>';
+      `).join('')}
+    </div>
+  `;
 
-  modalBody.innerHTML = html;
   const box = modal.querySelector('.modal-box');
-
-  // Content loading logic would go here based on projectId
-  // For now, we simulate finding the project and populating the modal-body
 
   modal.style.display = 'flex';
 
@@ -225,6 +224,7 @@ function openModal(projectId) {
 
 function closeModal() {
   const modal = document.getElementById('modal');
+  if (!modal) return;
   const box = modal.querySelector('.modal-box');
 
   box.classList.remove('active');
@@ -243,20 +243,6 @@ function closeModalOutside(e) {
   if (e.target.id === 'modal') closeModal();
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
-// Burger Menu Logic
-const burger = document.getElementById('burger');
-const navLinks = document.querySelector('.nav-links');
-if (burger) {
-  burger.addEventListener('click', () => {
-    navLinks.classList.toggle('nav-active');
-    burger.classList.toggle('toggle');
-  });
-}
-
-// Init
-document.addEventListener('DOMContentLoaded', () => {
-  loadSkills();
-  loadProjects();
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
 });
