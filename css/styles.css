@@ -683,8 +683,20 @@ section {
 
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .skills-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 .skill-card {
@@ -723,17 +735,45 @@ section {
   }
 }
 
-/* Variantes por tipo de skill (c=core, m=middle, w=complementaria) */
-.skill-card.c {
+/* Colores en damero: se recalculan por breakpoint según cuántas columnas hay */
+
+/* 1 columna: alterna cada tarjeta */
+.skill-card:nth-child(odd) {
   border-top-color: var(--cyan);
 }
 
-.skill-card.m {
+.skill-card:nth-child(even) {
   border-top-color: var(--magenta);
 }
 
-.skill-card.w {
-  border-top-color: rgba(255, 255, 255, 0.25);
+/* 2 columnas: filas de 2, cada fila invierte el orden de la anterior */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .skill-card:nth-child(4n+1),
+  .skill-card:nth-child(4n) {
+    border-top-color: var(--cyan);
+  }
+
+  .skill-card:nth-child(4n+2),
+  .skill-card:nth-child(4n+3) {
+    border-top-color: var(--magenta);
+  }
+}
+
+/* 4 columnas: filas de 4, cada fila invierte el orden de la anterior */
+@media (min-width: 1024px) {
+  .skill-card:nth-child(8n+1),
+  .skill-card:nth-child(8n+3),
+  .skill-card:nth-child(8n+6),
+  .skill-card:nth-child(8n) {
+    border-top-color: var(--cyan);
+  }
+
+  .skill-card:nth-child(8n+2),
+  .skill-card:nth-child(8n+4),
+  .skill-card:nth-child(8n+5),
+  .skill-card:nth-child(8n+7) {
+    border-top-color: var(--magenta);
+  }
 }
 
 .skill-icon {

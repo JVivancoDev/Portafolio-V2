@@ -100,7 +100,7 @@ async function loadSkills() {
 
     // Reemplaza los skeletons por las tarjetas reales
     container.innerHTML = skills.map(skill => `
-      <div class="skill-card ${skill.type} reveal">
+      <div class="skill-card reveal">
         <div class="skill-icon" aria-hidden="true">${skill.icon}</div>
         <div class="skill-name">${skill.name}</div>
         <div class="skill-sub">${skill.sub}</div>
