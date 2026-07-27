@@ -56,8 +56,7 @@
     <!-- NAV -->
     <nav>
         <a class="nav-logo" href="#hero">
-            <img alt="JV Design Solutions" class="logo-img" loading="lazy" src="img/LogoSinFondo.png"
-                style="height: 60px; width: auto; object-fit: contain;" />
+            <img alt="JV Design Solutions" class="logo-img" loading="lazy" src="img/logo-crop.png" />
         </a>
         <ul class="nav-links">
             <li><a href="#proyectos">Proyectos</a></li>
@@ -85,38 +84,23 @@
                 <span class="name">Hola, soy</span><br /><span class="accent-cyan">Javier Vivanco</span>
             </h1>
             <p class="hero-role">Ingeniero Informático <span>&amp;</span> Desarrollador Web</p>
-            <p class="hero-desc">
-                Combino <strong>ingeniería de datos</strong> con <strong>automatización</strong> para crear
-                soluciones web reales y medibles. Desde APIs hasta RPA, construyo sistemas que trabajan por ti.
-            </p>
-            <div class="hero-cta">
-                <a class="btn-primary" href="#portafolio">Explorar proyectos</a>
-                <a class="btn-outline" href="#contacto">Trabajemos juntos</a>
-            </div>
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-n">3+</span>
-                    <span class="stat-l">Proyectos activos</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-n mag">7</span>
-                    <span class="stat-l">Tecnologías core</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-n">100%</span>
-                    <span class="stat-l">Comprometido</span>
+            <div class="hero-meta">
+                <p class="hero-desc">
+                    Convierto <strong>datos dispersos</strong> en sistemas web que se automatizan a sí mismos:
+                    menos tareas repetitivas, más decisiones con información real, desde APIs hasta flujos de RPA.
+                </p>
+                <div class="hero-cta">
+                    <a class="btn-primary" href="#portafolio">Explorar proyectos</a>
+                    <a class="btn-outline" href="#contacto">Trabajemos juntos</a>
                 </div>
             </div>
         </div>
-        <div class="hero-avatar">
-            <div class="avatar-frame">
-                <div class="avatar-glow"></div>
-                <img alt="J. Vivanco" class="avatar-img" decoding="async" loading="lazy" src="img/avatar.jpg"
-                    onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#0a1a1a,#1a0a1a)'; this.parentElement.innerHTML += '&lt;div style=\'position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);color:var(--cyan);font-size:4rem;font-weight:800;\'&gt;JV&lt;/div&gt;';" />
-                <div class="avatar-corner tl"></div>
-                <div class="avatar-corner tr"></div>
-                <div class="avatar-corner bl"></div>
-                <div class="avatar-corner br"></div>
+        <div class="hero-ticker-wrap">
+            <div class="hero-ticker">
+                <span><b>3+</b> proyectos activos <i>//</i> <b>7</b> tecnologías core <i>//</i> <b>100%</b>
+                    comprometido <i>//</i> Python <i>·</i> Google Apps Script <i>·</i> SQL <i>·</i></span>
+                <span aria-hidden="true"><b>3+</b> proyectos activos <i>//</i> <b>7</b> tecnologías core <i>//</i>
+                    <b>100%</b> comprometido <i>//</i> Python <i>·</i> Google Apps Script <i>·</i> SQL <i></span>
             </div>
         </div>
     </section>
@@ -133,7 +117,7 @@
         <div class="panels-container reveal">
             <!-- Panel 1 -->
             <div class="panel panel-1">
-                <div class="panel-bg" style="background-image: url('img/panel-kolenka.jpg');"></div>
+                <div class="panel-bg" style="background-image: url('img/Kolenka.png');"></div>
                 <div class="panel-overlay"></div>
                 <div class="panel-accent-line"></div>
                 <div class="panel-number">01</div>
@@ -157,7 +141,7 @@
             </div>
             <!-- Panel 2 -->
             <div class="panel panel-2">
-                <div class="panel-bg" style="background-image: url('img/panel-jardin.jpg');"></div>
+                <div class="panel-bg" style="background-image: url('img/Oasis.png');"></div>
                 <div class="panel-overlay"></div>
                 <div class="panel-accent-line"></div>
                 <div class="panel-number">02</div>
@@ -181,7 +165,7 @@
             </div>
             <!-- Panel 3 -->
             <div class="panel panel-3">
-                <div class="panel-bg" style="background-image: url('img/panel-lienza.jpg');"></div>
+                <div class="panel-bg" style="background-image: url('img/Lienza.png');"></div>
                 <div class="panel-overlay"></div>
                 <div class="panel-accent-line"></div>
                 <div class="panel-number">03</div>
@@ -306,14 +290,15 @@
 
     <!-- FOOTER -->
     <footer>
-        <p class="footer-text">© 2025 <span>J. Vivanco</span> — Ingeniería que genera valor</p>
-        <img alt="JV Design Solutions" class="logo-img" loading="lazy" src="img/logo.png"
-            style="height: 40px; width: auto; opacity: 0.8; object-fit: contain;" />
-        <p class="footer-sig" style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted);">
-            Construido con
-            <span style="color:var(--cyan)">HTML</span> + <span style="color:var(--magenta)">CSS</span> +
-            <span style="color:var(--text)">JS</span>
-        </p>
+        <div class="footer-inner">
+            <p class="footer-text">© 2025 <span>J. Vivanco</span> — Ingeniería que genera valor</p>
+            <img alt="JV Design Solutions" class="footer-logo" loading="lazy" src="img/logo-crop.png" />
+            <p class="footer-sig">
+                Construido con
+                <span style="color:var(--cyan)">HTML</span> + <span style="color:var(--magenta)">CSS</span> +
+                <span style="color:var(--text)">JS</span>
+            </p>
+        </div>
     </footer>
 
     <!-- MODAL GALERÍA -->
