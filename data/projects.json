@@ -43,5 +43,20 @@
         ],
         "live": "https://www.lienzaestudio.cl",
         "image": "img/Lienza.png"
-    }
+    },
+    {
+    "id": "cartelexpress",
+    "name": "Cartel Express",
+    "domain": "Herramienta interna",
+    "icon": "🏷️",
+    "description": "Automatización de cartelería retail: compara inventario día a día, detecta cambios de precio y genera automáticamente presentaciones listas para imprimir, con autoajuste de texto y cálculo de cuotas con tarjeta.",
+    "features": [
+        "Comparación automática de inventario vía Excel (nuevos productos y cambios de precio)",
+        "Filtros dinámicos por departamento y estado",
+        "Asignación de formato de cartel por producto (K2 / K4 / K16)",
+        "Generación de PowerPoint editable con autoajuste de texto y cálculo de cuotas"
+    ],
+    "live": "#",
+    "image": "img/Carteleria.png"
+}
 ]
